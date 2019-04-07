@@ -66,11 +66,11 @@
 
 .checkbox-show .box {
     -fx-background-insets: 0;
-    -fx-background-color: 0;
+    -fx-background-color: #FFF;
     -fx-border-width: 1px;
     -fx-border-color: #3B8686;
 }
 
 .checkbox-show {
-    -fx-pref-width: 120px;
+    -fx-min-width: 150px;
 }
