@@ -1,10 +1,14 @@
 package controller;
 
+import dao.UserDAO;
+import entity.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
+import java.util.Optional;
 
 public class LoginController {
 
@@ -36,9 +40,15 @@ public class LoginController {
     private Button btn_sign_up;
 
     private String password;
+    private UserDAO userDAO;
 
     @FXML
-    void showPassword() {
+    private void initialize() {
+        userDAO = new UserDAO();
+    }
+
+    @FXML
+    public void showPassword() {
         if (cb_show.isSelected()) {
             password = pf_l_password.getText();
             pf_l_password.clear();
@@ -50,12 +60,21 @@ public class LoginController {
     }
 
     @FXML
-    void signIn() {
-
+    public void signIn() {
+        Optional<User> userFromDatabase = userDAO.read(tf_l_login.getText());
+        if (userFromDatabase.isPresent()) {
+            if (userFromDatabase.get().getPassword().equals(pf_l_password.getText())) {
+                System.out.println("Zalogowany");
+            } else  {
+                System.out.println("Błędne hasło");
+            }
+        } else {
+            System.out.println("Nie ma takiego użytkownika");
+        }
     }
 
     @FXML
-    void signUp() {
+    public void signUp() {
 
     }
 
