@@ -46,6 +46,10 @@
     -fx-border-color: #3B8686;
 }
 
+.password-field {
+    -fx-prompt-text-fill: #000;
+}
+
 .textfield:focused {
     -fx-border-color: #2F3336;
 }

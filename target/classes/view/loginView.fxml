@@ -21,7 +21,7 @@
                         <Insets bottom="5.0" top="30.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField styleClass="textfield" stylesheets="@../css/designLogin.css">
+                  <TextField fx:id="tf_l_login" styleClass="textfield" stylesheets="@../css/designLogin.css">
                      <VBox.margin>
                         <Insets bottom="50.0" />
                      </VBox.margin>
@@ -31,13 +31,13 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <PasswordField styleClass="textfield" stylesheets="@../css/designLogin.css" />
-                  <Button mnemonicParsing="false" styleClass="btn-login" stylesheets="@../css/designLogin.css" text="Sign in">
+                  <PasswordField fx:id="pf_l_password" styleClass="textfield" stylesheets="@../css/designLogin.css" />
+                  <Button fx:id="btn_sign_in" mnemonicParsing="false" onAction="#signIn" styleClass="btn-login" stylesheets="@../css/designLogin.css" text="Sign in">
                      <VBox.margin>
                         <Insets top="50.0" />
                      </VBox.margin>
                   </Button>
-                  <CheckBox mnemonicParsing="false" styleClass="checkbox-show" stylesheets="@../css/designLogin.css" text="Show password">
+                  <CheckBox fx:id="cb_show" mnemonicParsing="false" onAction="#showPassword" styleClass="checkbox-show" stylesheets="@../css/designLogin.css" text="Show password">
                      <VBox.margin>
                         <Insets left="75.0" right="70.0" top="30.0" />
                      </VBox.margin>
@@ -55,7 +55,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField styleClass="textfield">
+                  <TextField fx:id="tf_r_login" styleClass="textfield">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
@@ -65,7 +65,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField styleClass="textfield">
+                  <TextField fx:id="tf_r_email" styleClass="textfield">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
@@ -75,7 +75,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <PasswordField styleClass="textfield">
+                  <PasswordField fx:id="pf_r_password" styleClass="textfield">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
@@ -85,12 +85,12 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <PasswordField styleClass="textfield">
+                  <PasswordField fx:id="pf_r_repeatPassword" styleClass="textfield">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </PasswordField>
-                  <Button mnemonicParsing="false" styleClass="btn-login" text="Sign up">
+                  <Button fx:id="btn_sign_up" mnemonicParsing="false" onAction="#signUp" styleClass="btn-login" text="Sign up">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>

@@ -1,0 +1,89 @@
+.hbox-top {
+    -fx-background-color: #3B8686;
+    -fx-padding: 10px 20px;
+}
+
+.textfield-search {
+    -fx-background-insets: 0;
+    -fx-background-color: #3B8686;
+    -fx-background-radius: 0;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: #FFF;
+    -fx-text-fill: #FFF;
+    -fx-font-size: 14px;
+    -fx-pref-width: 250px;
+}
+
+.btn-menu {
+    -fx-background-insets: 0;
+    -fx-background-color: #3B8686;
+    -fx-background-radius: 0;
+    -fx-font-size: 16px;
+}
+
+.context-menu {
+    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
+    -fx-background-color: #6FB9B9;
+    -fx-background-insets: 0, 1, 2;
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
+}
+
+.btn-menu:hover > .arrow-button > .arrow {
+    -fx-background-color: #2F3336;
+}
+
+.btn-menu > .arrow-button > .arrow {
+    -fx-background-color: #FFF;
+}
+
+.menu-item {
+    -fx-background-insets: 0;
+    -fx-background-color: #6FB9B9;
+    -fx-background-radius: 0;
+    -fx-text-fill: #FFF;
+    -fx-font-size: 16px;
+}
+
+.menu-item:hover {
+    -fx-background-color: #2F3336;
+}
+
+.vbox-todolist {
+    -fx-background-color: #EEE;
+    -fx-padding: 10px;
+}
+
+.gridpane-item {
+    -fx-padding: 10px 0 10px 0;
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #3B8686;
+    /*-fx-background-color: #0FF;*/
+}
+
+.checkbox-item .box {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: #EEE;
+    -fx-border-width: 1px;
+    -fx-border-color: #3B8686;
+}
+
+.checkbox-item:selected .box {
+    -fx-background-color: #3B8686;
+}
+
+.check-box:selected > .box > .mark {
+    -fx-background-color: #FFF;
+}
+
+.topic-item {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.date-item {
+    -fx-font-size: 14px;
+    -fx-text-fill: #3B8686;
+    -fx-font-style: italic;
+}
