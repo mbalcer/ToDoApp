@@ -83,10 +83,10 @@ public class LoginController {
                 userController.setAppController(appController);
                 appController.setMainBorderPane(parent);
             } else  {
-                System.out.println("Błędne hasło");
+                InfoDialog.showAlert("Niepoprawne dane", "Błędne hasło");
             }
         } else {
-            System.out.println("Nie ma takiego użytkownika");
+            InfoDialog.showAlert("Niepoprawne dane", "Nie ma takiego użytkownika");
         }
     }
 
