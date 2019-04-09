@@ -4,11 +4,9 @@ import dao.UserDAO;
 import entity.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
 import utility.InfoDialog;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
 import java.io.IOException;
 import java.util.Optional;
 
@@ -81,6 +79,8 @@ public class LoginController {
                 }
                 UserViewController userController = loader.getController();
                 userController.setAppController(appController);
+                userController.setUser(userFromDatabase.get());
+                userController.loadListTask();
                 appController.setMainBorderPane(parent);
             } else  {
                 InfoDialog.showAlert("Niepoprawne dane", "Błędne hasło");
