@@ -13,19 +13,22 @@ public class AppController {
     @FXML
     BorderPane mainBorderPane;
 
-    private void setMainBorderPane(String path) {
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(path));
+    public void setMainBorderPane(Parent parent) {
+        mainBorderPane.setCenter(parent);
+    }
+
+    @FXML
+    private void initialize() {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/loginView.fxml"));
         Parent parent = null;
         try {
             parent = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mainBorderPane.setCenter(parent);
-    }
 
-    @FXML
-    private void initialize() {
-        setMainBorderPane("/view/loginView.fxml");
+        LoginController loginController = loader.getController();
+        loginController.setAppController(this);
+        setMainBorderPane(parent);
     }
 }

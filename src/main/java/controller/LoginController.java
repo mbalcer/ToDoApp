@@ -2,12 +2,14 @@ package controller;
 
 import dao.UserDAO;
 import entity.User;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
+import utility.InfoDialog;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public class LoginController {
@@ -41,6 +43,12 @@ public class LoginController {
 
     private String password;
     private UserDAO userDAO;
+    private AppController appController;
+
+
+    public void setAppController(AppController appController) {
+        this.appController = appController;
+    }
 
     @FXML
     private void initialize() {
@@ -64,7 +72,14 @@ public class LoginController {
         Optional<User> userFromDatabase = userDAO.read(tf_l_login.getText());
         if (userFromDatabase.isPresent()) {
             if (userFromDatabase.get().getPassword().equals(pf_l_password.getText())) {
-                System.out.println("Zalogowany");
+                FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/userView.fxml"));
+                Parent parent = null;
+                try {
+                     parent = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                appController.setMainBorderPane(parent);
             } else  {
                 System.out.println("Błędne hasło");
             }
@@ -75,7 +90,19 @@ public class LoginController {
 
     @FXML
     public void signUp() {
-
+        if (tf_r_login.getText().isEmpty()) {
+            InfoDialog.showAlert("Popraw dane", "Login nie może być pusty");
+        } else if (tf_r_email.getText().isEmpty())
+            InfoDialog.showAlert("Popraw dane", "Email nie może być pusty");
+        else if (pf_r_password.getText().length() < 6)
+            InfoDialog.showAlert("Popraw dane", "Hasło powinno mieć więcej niż 6 znaków");
+        else if (!(pf_r_password.getText().equals(pf_r_repeatPassword.getText())))
+            InfoDialog.showAlert("Popraw dane", "Hasła nie są takie same");
+        else {
+            User newUser = new User(tf_r_login.getText(), pf_r_password.getText(), tf_r_email.getText());
+            userDAO.add(newUser);
+            InfoDialog.showAlert("Sukces", "Dodano nowego użytkownika");
+        }
     }
 
 }
