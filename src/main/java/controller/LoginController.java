@@ -79,6 +79,8 @@ public class LoginController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                UserViewController userController = loader.getController();
+                userController.setAppController(appController);
                 appController.setMainBorderPane(parent);
             } else  {
                 System.out.println("Błędne hasło");

@@ -19,6 +19,10 @@ public class AppController {
 
     @FXML
     private void initialize() {
+        loadLoginScreen();
+    }
+
+    public void loadLoginScreen() {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/loginView.fxml"));
         Parent parent = null;
         try {

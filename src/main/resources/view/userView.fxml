@@ -14,16 +14,15 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefHeight="500.0" prefWidth="400.0" stylesheets="@../css/designUserView.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.UserView">
+<AnchorPane prefHeight="500.0" prefWidth="400.0" stylesheets="@../css/designUserView.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserViewController">
    <children>
       <HBox layoutY="-1.0" prefHeight="65.0" prefWidth="400.0" styleClass="hbox-top" stylesheets="@../css/designUserView.css">
          <children>
-            <TextField promptText="Search" styleClass="textfield-search" stylesheets="@../css/designUserView.css" />
+            <TextField fx:id="tf_search" onKeyReleased="#searchTask" promptText="Search" styleClass="textfield-search" stylesheets="@../css/designUserView.css" />
             <MenuButton alignment="TOP_LEFT" mnemonicParsing="false" styleClass="btn-menu">
               <items>
-                <MenuItem mnemonicParsing="false" text="Add task" />
-                <MenuItem mnemonicParsing="false" text="Sign out" />
+                <MenuItem mnemonicParsing="false" onAction="#addNewTask" text="Add task" />
+                <MenuItem mnemonicParsing="false" onAction="#signOut" text="Sign out" />
               </items>
                <HBox.margin>
                   <Insets left="100.0" />
@@ -36,7 +35,7 @@
       </HBox>
       <ScrollPane hbarPolicy="NEVER" layoutY="60.0" prefHeight="440.0" prefWidth="400.0" stylesheets="@../css/designUserView.css">
          <content>
-            <VBox prefHeight="430.0" prefWidth="400.0" styleClass="vbox-todolist" stylesheets="@../css/designUserView.css">
+            <VBox fx:id="vbox_listTask" prefHeight="430.0" prefWidth="400.0" styleClass="vbox-todolist" stylesheets="@../css/designUserView.css">
                <children>
                   <GridPane maxHeight="53.0" minHeight="53.0" prefHeight="53.0" prefWidth="400.0" styleClass="gridpane-item" stylesheets="@../css/designUserView.css">
                     <columnConstraints>
