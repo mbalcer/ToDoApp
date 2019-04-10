@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXColorPicker?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ColorPicker?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
@@ -46,17 +47,18 @@
             <VBox fx:id="vbox_add" prefHeight="430.0" prefWidth="400.0" spacing="10.0" styleClass="vbox-todolist" stylesheets="@../css/designUserView.css">
                <children>
                   <Label styleClass="lbl-add" stylesheets="@../css/designAddTask.css" text="Name:" />
-                  <TextField styleClass="tf-add" stylesheets="@../css/designAddTask.css" />
+                  <TextField fx:id="nameTask" styleClass="tf-add" stylesheets="@../css/designAddTask.css" />
                   <Label styleClass="lbl-add" stylesheets="@../css/designAddTask.css" text="Date:" />
                   <HBox fx:id="hbox_dateTime">
                      <children>
-                        <DatePicker styleClass="dp-add" stylesheets="@../css/designAddTask.css" />
+                        <JFXDatePicker fx:id="dateTask" styleClass="dp-add" stylesheets="@../css/designAddTask.css" />
+                        <JFXTimePicker fx:id="timeTask" prefHeight="58.0" prefWidth="176.0" styleClass="dp-add" stylesheets="@../css/designAddTask.css" />
                      </children>
                   </HBox>
                   <Label styleClass="lbl-add" stylesheets="@../css/designAddTask.css" text="Description:" />
-                  <TextArea prefHeight="41.0" prefWidth="380.0" styleClass="ta-add" stylesheets="@../css/designAddTask.css" />
+                  <TextArea fx:id="descriptionTask" prefHeight="41.0" prefWidth="380.0" styleClass="ta-add" stylesheets="@../css/designAddTask.css" />
                   <Label styleClass="lbl-add" stylesheets="@../css/designAddTask.css" text="Color:" />
-                  <ColorPicker styleClass="cp-add" stylesheets="@../css/designAddTask.css" />
+                  <JFXColorPicker fx:id="colorTask" />
                   <Button mnemonicParsing="false" onAction="#addTask" styleClass="btn-add" stylesheets="@../css/designAddTask.css" text="Add" />
                </children></VBox>
          </content>
