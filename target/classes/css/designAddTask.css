@@ -1,0 +1,64 @@
+.btn-back {
+    -fx-background-color: #3B8686;
+}
+
+.tf-add {
+    -fx-padding: 10px 0;
+    -fx-background-insets: 0;
+    -fx-background-color: #EEE;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: #3B8686;
+}
+
+.lbl-add {
+    -fx-font-size: 14px;
+}
+
+.dp-add {
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+    -fx-background-color: #EEE;
+    -fx-padding: 10px 0;
+    -fx-pref-width: 250px;
+}
+
+.dp-add > .text-field {
+    -fx-background-color: #EEE;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: #3B8686;
+
+}
+
+.dp-add:editable > .arrow-button > * {
+    -fx-opacity: 0;
+}
+
+.dp-add > .arrow-button {
+    -fx-background-color: #3B8686;
+    -fx-background-image: url("../img/calendar.png");
+    -fx-background-size: 60% 60%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+    -fx-background-radius: 0;
+    -fx-padding: 15px;
+}
+
+.ta-add {
+    -fx-background-insets: 0;
+    -fx-background-color: #EEE;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: #3B8686;
+    -fx-wrap-text: true;
+}
+
+.ta-add .content {
+    -fx-background-color: #EEE;
+}
+
+.cp-add {
+    -fx-background-color: #3B8686;
+}
+
+.cp-add > .arrow-button > .arrow {
+    -fx-background-color: #FFF;
+}

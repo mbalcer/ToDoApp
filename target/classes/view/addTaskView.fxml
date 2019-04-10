@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="400.0" stylesheets="@../css/designUserView.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserViewController">
+   <children>
+      <HBox layoutY="-1.0" prefHeight="65.0" prefWidth="400.0" styleClass="hbox-top" stylesheets="@../css/designUserView.css">
+         <padding>
+            <Insets bottom="10.0" top="10.0" />
+         </padding>
+         <children>
+            <Button mnemonicParsing="false" styleClass="btn-back" stylesheets="@../css/designAddTask.css">
+               <graphic>
+                  <ImageView fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/left-arrow.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Label text="Add task" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="100.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <ScrollPane hbarPolicy="NEVER" layoutY="60.0" prefHeight="440.0" prefWidth="400.0" stylesheets="@../css/designUserView.css">
+         <content>
+            <VBox fx:id="vbox_add" prefHeight="430.0" prefWidth="400.0" spacing="10.0" styleClass="vbox-todolist" stylesheets="@../css/designUserView.css">
+               <children>
+                  <Label styleClass="lbl-add" stylesheets="@../css/designAddTask.css" text="Name:" />
+                  <TextField styleClass="tf-add" stylesheets="@../css/designAddTask.css" />
+                  <Label styleClass="lbl-add" stylesheets="@../css/designAddTask.css" text="Date:" />
+                  <DatePicker styleClass="dp-add" stylesheets="@../css/designAddTask.css" />
+                  <Label styleClass="lbl-add" stylesheets="@../css/designAddTask.css" text="Description:" />
+                  <TextArea prefHeight="62.0" prefWidth="314.0" style="-fx-background-color: #EEE;" styleClass="ta-add" stylesheets="@../css/designAddTask.css" />
+                  <Label styleClass="lbl-add" stylesheets="@../css/designAddTask.css" text="Color:" />
+                  <ColorPicker styleClass="cp-add" stylesheets="@../css/designAddTask.css" />
+                  <Button mnemonicParsing="false" styleClass="btn-add" stylesheets="@../css/designAddTask.css" text="Add" />
+               </children></VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

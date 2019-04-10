@@ -1,0 +1,89 @@
+.btn-back {
+    -fx-background-color: #3B8686;
+}
+
+.tf-add {
+    -fx-padding: 10px 0;
+    -fx-background-insets: 0;
+    -fx-background-color: #EEE;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: #3B8686;
+
+    -fx-font-size: 16px;
+}
+
+.lbl-add {
+    -fx-font-size: 14px;
+}
+
+.dp-add {
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+    -fx-background-color: #EEE;
+    -fx-padding: 10px 0;
+    -fx-pref-width: 200px;
+}
+
+.dp-add > .text-field {
+    -fx-background-color: #EEE;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: #3B8686;
+    -fx-font-size: 16px;
+}
+
+.dp-add:editable > .arrow-button > * {
+    -fx-opacity: 0;
+}
+
+.dp-add > .arrow-button {
+    -fx-background-color: #EEE;
+    -fx-background-image: url("../img/calendar-icon.png");
+    -fx-background-size: 80% 80%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+    -fx-background-radius: 0;
+    -fx-padding: 15px;
+}
+
+.ta-add {
+    -fx-background-insets: 0;
+    -fx-background-color: #EEE;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: #3B8686;
+    -fx-wrap-text: true;
+}
+
+.ta-add .content {
+    -fx-background-color: #EEE;
+}
+
+.cp-add {
+    -fx-background-color: #3B8686;
+    -fx-font-size: 16px;
+}
+
+.cp-add > .arrow-button > .arrow {
+    -fx-background-color: #FFF;
+}
+
+.cp-add:hover > .arrow-button > .arrow {
+    -fx-background-color: #2F3336;
+}
+
+.cp-add .label {
+    -fx-text-fill: #FFF;
+}
+
+.btn-add {
+    -fx-pref-width: 380px;
+    -fx-background-insets: 0;
+    -fx-background-color: #3B8686;
+    -fx-text-fill: #FFF;
+    -fx-background-radius: 20px;
+    -fx-font-size: 18px;
+    -fx-pref-height: 40px;
+}
+
+.btn-add:hover {
+    -fx-background-color: #2F3336;
+}
