@@ -7,11 +7,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
+import javafx.scene.Parent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 
+import java.io.IOException;
 import java.util.Date;
 
 
@@ -24,6 +26,7 @@ public class UserViewController {
     private VBox vbox_listTask;
 
     private AppController appController;
+    private LoginController loginController;
     private TaskDAO taskDAO;
     private User user;
 
@@ -31,12 +34,27 @@ public class UserViewController {
         this.appController = appController;
     }
 
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
+    }
+
     public void setUser(User user) {
         this.user = user;
     }
 
     @FXML
-    void addNewTask() {
+    void showAddTaskView() {
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/view/addTaskView.fxml"));
+        Parent parent = null;
+        try {
+            parent = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        AddTaskController addTaskController = fxmlLoader.getController();
+        addTaskController.setLoginController(loginController);
+        addTaskController.setUser(user);
+        appController.setMainBorderPane(parent);
     }
 
     @FXML
@@ -98,9 +116,12 @@ public class UserViewController {
     }
 
     public void loadListTask() {
-        GridPane gridPane = createGridPane("Zadanko", new Date());
-
-        vbox_listTask.getChildren().add(gridPane);
+        taskDAO.readAll(user.getId())
+                .stream()
+                .forEach(task -> {
+                    GridPane gridPane = createGridPane(task.getName(), task.getDate());
+                    vbox_listTask.getChildren().add(gridPane);
+                });
     }
 
 

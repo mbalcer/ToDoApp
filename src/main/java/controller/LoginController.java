@@ -70,24 +70,29 @@ public class LoginController {
         Optional<User> userFromDatabase = userDAO.read(tf_l_login.getText());
         if (userFromDatabase.isPresent()) {
             if (userFromDatabase.get().getPassword().equals(pf_l_password.getText())) {
-                FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/userView.fxml"));
-                Parent parent = null;
-                try {
-                     parent = loader.load();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                UserViewController userController = loader.getController();
-                userController.setAppController(appController);
-                userController.setUser(userFromDatabase.get());
-                userController.loadListTask();
-                appController.setMainBorderPane(parent);
+                loadUserView(userFromDatabase.get());
             } else  {
                 InfoDialog.showAlert("Niepoprawne dane", "Błędne hasło");
             }
         } else {
             InfoDialog.showAlert("Niepoprawne dane", "Nie ma takiego użytkownika");
         }
+    }
+
+    public void loadUserView(User user) {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/userView.fxml"));
+        Parent parent = null;
+        try {
+             parent = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        UserViewController userController = loader.getController();
+        userController.setAppController(appController);
+        userController.setLoginController(this);
+        userController.setUser(user);
+        userController.loadListTask();
+        appController.setMainBorderPane(parent);
     }
 
     @FXML
