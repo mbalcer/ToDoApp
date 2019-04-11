@@ -9,6 +9,7 @@ import entity.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -50,14 +51,24 @@ public class AddTaskController {
         taskDAO = new TaskDAO();
     }
 
+    private String toRGBCode( Color color )
+    {
+        return String.format( "#%02X%02X%02X",
+                (int)( color.getRed() * 255 ),
+                (int)( color.getGreen() * 255 ),
+                (int)( color.getBlue() * 255 ) );
+    }
+
     @FXML
     void addTask() {
         LocalDateTime localDateTime = LocalDateTime.of(dateTask.getValue(), timeTask.getValue());
         Instant instant = localDateTime.atZone(ZoneId.of("Europe/Warsaw")).toInstant();
         Date date = Date.from(instant);
-        Task task = new Task(user.getId(), nameTask.getText(), date, descriptionTask.getText(), colorTask.getValue().toString(), false);
+        Color color = colorTask.getValue();
+        Task task = new Task(user.getId(), nameTask.getText(), date, descriptionTask.getText(), toRGBCode(color), false);
         taskDAO.add(task);
     }
+
 
     @FXML
     void backToListTask() {
