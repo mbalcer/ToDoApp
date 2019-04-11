@@ -59,23 +59,6 @@
     -fx-border-color: #2F3336;
 }
 
-.cp-add {
-    -fx-background-color: #3B8686;
-    -fx-font-size: 16px;
-}
-
-.cp-add > .arrow-button > .arrow {
-    -fx-background-color: #FFF;
-}
-
-.cp-add:hover > .arrow-button > .arrow {
-    -fx-background-color: #2F3336;
-}
-
-.cp-add .label {
-    -fx-text-fill: #FFF;
-}
-
 .btn-add {
     -fx-pref-width: 380px;
     -fx-background-insets: 0;

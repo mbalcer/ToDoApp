@@ -12,8 +12,11 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -72,7 +75,7 @@ public class UserViewController {
         vbox_listTask.setSpacing(10);
     }
 
-    private GridPane createGridPane(String topic, Date dateTask) {
+    private GridPane createGridPane(String topic, String dateTask, boolean isAfter, String color) {
         GridPane gridPane = new GridPane();
         gridPane.setMinHeight(53.0);
         gridPane.setPrefHeight(53.0);
@@ -107,10 +110,19 @@ public class UserViewController {
         Label labelTopic = new Label(topic);
         labelTopic.getStyleClass().add("topic-item");
 
-        Label labelDate = new Label(dateTask.toString());
+        Label labelDate = new Label(dateTask);
         labelDate.getStyleClass().add("date-item");
+        if (isAfter==true)
+            labelDate.getStyleClass().add("date-item-red");
 
         gridPane.addColumn(1, labelTopic, labelDate);
+        Border border = new Border(new BorderStroke(
+                Paint.valueOf(color),
+                BorderStrokeStyle.SOLID,
+                new CornerRadii(5),
+                new BorderWidths(1))
+        );
+        gridPane.setBorder(border);
 
         return gridPane;
     }
@@ -119,7 +131,13 @@ public class UserViewController {
         taskDAO.readAll(user.getId())
                 .stream()
                 .forEach(task -> {
-                    GridPane gridPane = createGridPane(task.getName(), task.getDate());
+                    boolean isAfter = false;
+                    Date today = new Date();
+                    if (today.compareTo(task.getDate())>0)
+                        isAfter = true;
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+                    String dateTask = dateFormat.format(task.getDate());
+                    GridPane gridPane = createGridPane(task.getName(), dateTask, isAfter, task.getColor());
                     vbox_listTask.getChildren().add(gridPane);
                 });
     }

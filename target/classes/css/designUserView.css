@@ -55,9 +55,9 @@
 
 .gridpane-item {
     -fx-padding: 10px 0 10px 0;
-    -fx-border-width: 1px 1px 1px 1px;
-    -fx-border-radius: 5px;
-    -fx-border-color: #3B8686;
+    /*-fx-border-width: 1px 1px 1px 1px;*/
+    /*-fx-border-radius: 5px;*/
+    /*-fx-border-color: #3B8686;*/
     /*-fx-background-color: #0FF;*/
 }
 
@@ -86,4 +86,8 @@
     -fx-font-size: 14px;
     -fx-text-fill: #3B8686;
     -fx-font-style: italic;
+}
+
+.date-item-red {
+    -fx-text-fill: #FF0000;
 }
