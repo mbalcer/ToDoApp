@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import utility.InfoDialog;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -38,6 +39,7 @@ public class AddTaskController {
     private LoginController loginController;
     private TaskDAO taskDAO;
     private User user;
+    private String infoError;
 
     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
@@ -59,14 +61,41 @@ public class AddTaskController {
                 (int)( color.getBlue() * 255 ) );
     }
 
+    private void clearAllField() {
+        nameTask.clear();
+        dateTask.setValue(null);
+        timeTask.setValue(null);
+        descriptionTask.clear();
+        colorTask.setValue(Color.valueOf("0x3B8686FF"));
+    }
+
+    private boolean checkData() {
+        infoError = null;
+        if (nameTask.getText().isEmpty())
+            infoError = "Nazwa zadania nie może być pusta";
+        else if (dateTask.getValue()==null)
+            infoError = "Określ datę zadania";
+        else if (timeTask.getValue()==null)
+            infoError = "Określ czas zadania";
+        else
+            return true;
+
+        return false;
+    }
+
     @FXML
     void addTask() {
-        LocalDateTime localDateTime = LocalDateTime.of(dateTask.getValue(), timeTask.getValue());
-        Instant instant = localDateTime.atZone(ZoneId.of("Europe/Warsaw")).toInstant();
-        Date date = Date.from(instant);
-        Color color = colorTask.getValue();
-        Task task = new Task(user.getId(), nameTask.getText(), date, descriptionTask.getText(), toRGBCode(color), false);
-        taskDAO.add(task);
+        if (!checkData())
+            InfoDialog.showAlert("Błąd", infoError);
+        else {
+            LocalDateTime localDateTime = LocalDateTime.of(dateTask.getValue(), timeTask.getValue());
+            Instant instant = localDateTime.atZone(ZoneId.of("Europe/Warsaw")).toInstant();
+            Date date = Date.from(instant);
+            Color color = colorTask.getValue();
+            Task task = new Task(user.getId(), nameTask.getText(), date, descriptionTask.getText(), toRGBCode(color), false);
+            taskDAO.add(task);
+            clearAllField();
+        }
     }
 
 
