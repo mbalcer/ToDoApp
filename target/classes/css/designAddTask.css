@@ -8,6 +8,12 @@
     -fx-background-color: #EEE;
     -fx-border-width: 0 0 2px 0;
     -fx-border-color: #3B8686;
+
+    -fx-font-size: 16px;
+}
+
+.tf-add:focused {
+    -fx-border-color: #2F3336;
 }
 
 .lbl-add {
@@ -19,28 +25,22 @@
     -fx-border-width: 0;
     -fx-background-color: #EEE;
     -fx-padding: 10px 0;
-    -fx-pref-width: 250px;
+    -fx-pref-width: 180px;
 }
 
 .dp-add > .text-field {
     -fx-background-color: #EEE;
+    -fx-font-size: 16px;
+}
+
+.dp-add .input-line {
     -fx-border-width: 0 0 2px 0;
     -fx-border-color: #3B8686;
-
 }
 
-.dp-add:editable > .arrow-button > * {
-    -fx-opacity: 0;
-}
+.dp-add .input-focused-line {
 
-.dp-add > .arrow-button {
-    -fx-background-color: #3B8686;
-    -fx-background-image: url("../img/calendar.png");
-    -fx-background-size: 60% 60%;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center center;
-    -fx-background-radius: 0;
-    -fx-padding: 15px;
+    -fx-border-color: #2F3336;
 }
 
 .ta-add {
@@ -55,10 +55,37 @@
     -fx-background-color: #EEE;
 }
 
+.ta-add:focused {
+    -fx-border-color: #2F3336;
+}
+
 .cp-add {
     -fx-background-color: #3B8686;
+    -fx-font-size: 16px;
 }
 
 .cp-add > .arrow-button > .arrow {
     -fx-background-color: #FFF;
+}
+
+.cp-add:hover > .arrow-button > .arrow {
+    -fx-background-color: #2F3336;
+}
+
+.cp-add .label {
+    -fx-text-fill: #FFF;
+}
+
+.btn-add {
+    -fx-pref-width: 380px;
+    -fx-background-insets: 0;
+    -fx-background-color: #3B8686;
+    -fx-text-fill: #FFF;
+    -fx-background-radius: 20px;
+    -fx-font-size: 18px;
+    -fx-pref-height: 40px;
+}
+
+.btn-add:hover {
+    -fx-background-color: #2F3336;
 }

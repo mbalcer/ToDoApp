@@ -11,8 +11,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class AddTaskController {
 
@@ -49,7 +52,8 @@ public class AddTaskController {
 
     @FXML
     void addTask() {
-        Instant instant = Instant.from(dateTask.getValue().atStartOfDay(ZoneId.systemDefault()));
+        LocalDateTime localDateTime = LocalDateTime.of(dateTask.getValue(), timeTask.getValue());
+        Instant instant = localDateTime.atZone(ZoneId.of("Europe/Warsaw")).toInstant();
         Date date = Date.from(instant);
         Task task = new Task(user.getId(), nameTask.getText(), date, descriptionTask.getText(), colorTask.getValue().toString(), false);
         taskDAO.add(task);

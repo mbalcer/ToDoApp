@@ -16,7 +16,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="400.0" stylesheets="@../css/designUserView.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addTaskController">
+<?import javafx.scene.paint.Color?>
+<AnchorPane prefHeight="500.0" prefWidth="400.0" stylesheets="@../css/designUserView.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddTaskController">
    <children>
       <HBox layoutY="-1.0" prefHeight="65.0" prefWidth="400.0" styleClass="hbox-top" stylesheets="@../css/designUserView.css">
          <padding>
@@ -58,7 +59,11 @@
                   <Label styleClass="lbl-add" stylesheets="@../css/designAddTask.css" text="Description:" />
                   <TextArea fx:id="descriptionTask" prefHeight="41.0" prefWidth="380.0" styleClass="ta-add" stylesheets="@../css/designAddTask.css" />
                   <Label styleClass="lbl-add" stylesheets="@../css/designAddTask.css" text="Color:" />
-                  <JFXColorPicker fx:id="colorTask" />
+                  <JFXColorPicker fx:id="colorTask">
+                     <value>
+                        <Color fx:value="0x3B8686FF"></Color>
+                     </value>
+                  </JFXColorPicker>
                   <Button mnemonicParsing="false" onAction="#addTask" styleClass="btn-add" stylesheets="@../css/designAddTask.css" text="Add" />
                </children></VBox>
          </content>
