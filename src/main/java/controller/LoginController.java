@@ -91,7 +91,7 @@ public class LoginController {
         userController.setAppController(appController);
         userController.setLoginController(this);
         userController.setUser(user);
-        userController.loadListTask();
+        userController.loadListTask(false);
         appController.setMainBorderPane(parent);
     }
 

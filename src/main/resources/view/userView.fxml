@@ -17,6 +17,7 @@
             <MenuButton alignment="TOP_LEFT" mnemonicParsing="false" styleClass="btn-menu">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#showAddTaskView" text="Add task" />
+                  <MenuItem fx:id="switchingDisplayOfTasks" mnemonicParsing="false" onAction="#showCompletedTasks" text="Completed tasks" />
                 <MenuItem mnemonicParsing="false" onAction="#signOut" text="Sign out" />
               </items>
                <HBox.margin>

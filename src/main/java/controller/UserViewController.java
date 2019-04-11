@@ -14,6 +14,7 @@ import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
@@ -32,10 +33,14 @@ public class UserViewController {
     @FXML
     private VBox vbox_listTask;
 
+    @FXML
+    MenuItem switchingDisplayOfTasks;
+
     private AppController appController;
     private LoginController loginController;
     private TaskDAO taskDAO;
     private User user;
+    private boolean showIsCompleted;
 
     public void setAppController(AppController appController) {
         this.appController = appController;
@@ -67,6 +72,18 @@ public class UserViewController {
     @FXML
     void searchTask() {
 
+    }
+
+    @FXML
+    void showCompletedTasks() {
+        if (showIsCompleted) {
+            loadListTask(false);
+            switchingDisplayOfTasks.setText("Completed tasks");
+        }
+        else {
+            loadListTask(true);
+            switchingDisplayOfTasks.setText("Tasks to do");
+        }
     }
 
     @FXML
@@ -110,7 +127,7 @@ public class UserViewController {
             @Override
             public void handle(ActionEvent event) {
                 taskDAO.setIsCompleted(taskId);
-                loadListTask();
+                loadListTask(false );
             }
         });
 
@@ -138,9 +155,10 @@ public class UserViewController {
         return gridPane;
     }
 
-    public void loadListTask() {
+    public void loadListTask(boolean isCompleted) {
+        showIsCompleted = isCompleted;
         vbox_listTask.getChildren().clear();
-        taskDAO.readAll(user.getId())
+        taskDAO.readAll(user.getId(), isCompleted)
                 .stream()
                 .forEach(task -> {
                     boolean isAfter = false;

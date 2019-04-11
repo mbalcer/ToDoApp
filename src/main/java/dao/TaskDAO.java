@@ -42,12 +42,12 @@ public class TaskDAO {
         }
     }
 
-    public List<Task> readAll(Long userId) {
+    public List<Task> readAll(Long userId, boolean isCompleted) {
         HibernateFactory hibernateFactory = new HibernateFactory();
         Session session = hibernateFactory.getSessionFactory().openSession();
         List<Task> taskList = new ArrayList<Task>();
         try {
-            Query query = session.createQuery(String.format("FROM %s WHERE userId=%d AND isCompleted=%d ORDER BY date ASC", Task.class.getSimpleName(), userId, 0));
+            Query query = session.createQuery(String.format("FROM %s WHERE userId=%d AND isCompleted=%d ORDER BY date ASC", Task.class.getSimpleName(), userId, isCompleted ? 1 : 0));
             taskList = query.list();
         } catch (Exception e) {
             e.printStackTrace();
