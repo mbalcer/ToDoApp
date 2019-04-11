@@ -2,6 +2,10 @@ package controller;
 
 import dao.TaskDAO;
 import entity.User;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
@@ -75,7 +79,7 @@ public class UserViewController {
         vbox_listTask.setSpacing(10);
     }
 
-    private GridPane createGridPane(String topic, String dateTask, boolean isAfter, String color) {
+    private GridPane createGridPane(Long taskId, String topic, String dateTask, boolean isAfter, String color) {
         GridPane gridPane = new GridPane();
         gridPane.setMinHeight(53.0);
         gridPane.setPrefHeight(53.0);
@@ -102,6 +106,13 @@ public class UserViewController {
         checkbox.setPrefHeight(14.0);
         checkbox.setPrefWidth(10.0);
         checkbox.getStyleClass().add("checkbox-item");
+        checkbox.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                taskDAO.setIsCompleted(taskId);
+                loadListTask();
+            }
+        });
 
         gridPane.setHalignment(checkbox, HPos.CENTER);
         gridPane.setValignment(checkbox, VPos.CENTER);
@@ -128,6 +139,7 @@ public class UserViewController {
     }
 
     public void loadListTask() {
+        vbox_listTask.getChildren().clear();
         taskDAO.readAll(user.getId())
                 .stream()
                 .forEach(task -> {
@@ -137,7 +149,7 @@ public class UserViewController {
                         isAfter = true;
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
                     String dateTask = dateFormat.format(task.getDate());
-                    GridPane gridPane = createGridPane(task.getName(), dateTask, isAfter, task.getColor());
+                    GridPane gridPane = createGridPane(task.getId(), task.getName(), dateTask, isAfter, task.getColor());
                     vbox_listTask.getChildren().add(gridPane);
                 });
     }

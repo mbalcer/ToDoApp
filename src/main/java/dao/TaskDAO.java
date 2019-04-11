@@ -26,6 +26,22 @@ public class TaskDAO {
         }
     }
 
+    public void setIsCompleted(Long id) {
+        HibernateFactory hibernateFactory = new HibernateFactory();
+        Session session = hibernateFactory.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            Task task = session.find(Task.class, id);
+            task.setCompleted(true);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+
     public List<Task> readAll(Long userId) {
         HibernateFactory hibernateFactory = new HibernateFactory();
         Session session = hibernateFactory.getSessionFactory().openSession();
