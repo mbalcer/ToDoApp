@@ -8,7 +8,9 @@ import utility.InfoDialog;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class LoginController {
 
@@ -42,6 +44,7 @@ public class LoginController {
     private String password;
     private UserDAO userDAO;
     private AppController appController;
+    private ResourceBundle properties;
 
 
     public void setAppController(AppController appController) {
@@ -50,7 +53,9 @@ public class LoginController {
 
     @FXML
     private void initialize() {
+        Locale.setDefault(new Locale("en"));
         userDAO = new UserDAO();
+        properties = ResourceBundle.getBundle("bundles.messages");
     }
 
     @FXML
@@ -72,10 +77,10 @@ public class LoginController {
             if (userFromDatabase.get().getPassword().equals(pf_l_password.getText())) {
                 loadUserView(userFromDatabase.get());
             } else  {
-                InfoDialog.showAlert("Niepoprawne dane", "Błędne hasło");
+                InfoDialog.showAlert(properties.getString("login.title.error"), properties.getString("login.error.password"));
             }
         } else {
-            InfoDialog.showAlert("Niepoprawne dane", "Nie ma takiego użytkownika");
+            InfoDialog.showAlert(properties.getString("login.title.error"), properties.getString("login.error.nouser"));
         }
     }
 
@@ -98,17 +103,17 @@ public class LoginController {
     @FXML
     public void signUp() {
         if (tf_r_login.getText().isEmpty()) {
-            InfoDialog.showAlert("Popraw dane", "Login nie może być pusty");
+            InfoDialog.showAlert(properties.getString("register.title.error"), properties.getString("register.error.nologin"));
         } else if (tf_r_email.getText().isEmpty())
-            InfoDialog.showAlert("Popraw dane", "Email nie może być pusty");
+            InfoDialog.showAlert(properties.getString("register.title.error"), properties.getString("register.error.noemail"));
         else if (pf_r_password.getText().length() < 6)
-            InfoDialog.showAlert("Popraw dane", "Hasło powinno mieć więcej niż 6 znaków");
+            InfoDialog.showAlert(properties.getString("register.title.error"), properties.getString("register.error.shortpassword"));
         else if (!(pf_r_password.getText().equals(pf_r_repeatPassword.getText())))
-            InfoDialog.showAlert("Popraw dane", "Hasła nie są takie same");
+            InfoDialog.showAlert(properties.getString("register.title.error"), properties.getString("register.error.passwordnotsame"));
         else {
             User newUser = new User(tf_r_login.getText(), pf_r_password.getText(), tf_r_email.getText());
             userDAO.add(newUser);
-            InfoDialog.showAlert("Sukces", "Dodano nowego użytkownika");
+            InfoDialog.showAlert(properties.getString("register.title.success"), properties.getString("register.success.info"));
         }
     }
 
