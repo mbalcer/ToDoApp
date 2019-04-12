@@ -59,6 +59,7 @@ public class UserViewController {
     @FXML
     void showAddTaskView() {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/view/addTaskView.fxml"));
+        fxmlLoader.setResources(properties);
         Parent parent = null;
         try {
             parent = fxmlLoader.load();

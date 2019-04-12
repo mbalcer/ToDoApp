@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.ResourceBundle;
 import java.util.TimeZone;
 
 public class AddTaskController {
@@ -40,6 +41,7 @@ public class AddTaskController {
     private TaskDAO taskDAO;
     private User user;
     private String infoError;
+    private ResourceBundle properties;
 
     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
@@ -51,6 +53,7 @@ public class AddTaskController {
 
     public void initialize() {
         taskDAO = new TaskDAO();
+        properties = ResourceBundle.getBundle("bundles.messages");
     }
 
     private String toRGBCode( Color color )
@@ -72,11 +75,11 @@ public class AddTaskController {
     private boolean checkData() {
         infoError = null;
         if (nameTask.getText().isEmpty())
-            infoError = "Nazwa zadania nie może być pusta";
+            infoError = properties.getString("add.error.noname");
         else if (dateTask.getValue()==null)
-            infoError = "Określ datę zadania";
+            infoError = properties.getString("add.error.nodate");
         else if (timeTask.getValue()==null)
-            infoError = "Określ czas zadania";
+            infoError = properties.getString("add.error.notime");
         else
             return true;
 
@@ -86,7 +89,7 @@ public class AddTaskController {
     @FXML
     void addTask() {
         if (!checkData())
-            InfoDialog.showAlert("Błąd", infoError);
+            InfoDialog.showAlert(properties.getString("add.error.title"), infoError);
         else {
             LocalDateTime localDateTime = LocalDateTime.of(dateTask.getValue(), timeTask.getValue());
             Instant instant = localDateTime.atZone(ZoneId.of("Europe/Warsaw")).toInstant();

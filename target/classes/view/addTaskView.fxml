@@ -33,7 +33,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label text="New task" textAlignment="CENTER" textFill="WHITE">
+            <Label text="%view.add.title" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -47,24 +47,24 @@
          <content>
             <VBox fx:id="vbox_add" prefHeight="430.0" prefWidth="400.0" spacing="10.0" styleClass="vbox-todolist" stylesheets="@../css/designUserView.css">
                <children>
-                  <Label styleClass="lbl-add" stylesheets="@../css/designAddTask.css" text="Name:" />
+                  <Label styleClass="lbl-add" stylesheets="@../css/designAddTask.css" text="%view.add.name" />
                   <TextField fx:id="nameTask" styleClass="tf-add" stylesheets="@../css/designAddTask.css" />
-                  <Label styleClass="lbl-add" stylesheets="@../css/designAddTask.css" text="Date:" />
+                  <Label styleClass="lbl-add" stylesheets="@../css/designAddTask.css" text="%view.add.date" />
                   <HBox fx:id="hbox_dateTime">
                      <children>
                         <JFXDatePicker fx:id="dateTask" styleClass="dp-add" stylesheets="@../css/designAddTask.css" />
                         <JFXTimePicker fx:id="timeTask" prefHeight="58.0" prefWidth="176.0" styleClass="dp-add" stylesheets="@../css/designAddTask.css" />
                      </children>
                   </HBox>
-                  <Label styleClass="lbl-add" stylesheets="@../css/designAddTask.css" text="Description:" />
+                  <Label styleClass="lbl-add" stylesheets="@../css/designAddTask.css" text="%view.add.description" />
                   <TextArea fx:id="descriptionTask" prefHeight="41.0" prefWidth="380.0" styleClass="ta-add" stylesheets="@../css/designAddTask.css" />
-                  <Label styleClass="lbl-add" stylesheets="@../css/designAddTask.css" text="Color:" />
+                  <Label styleClass="lbl-add" stylesheets="@../css/designAddTask.css" text="%view.add.color" />
                   <JFXColorPicker fx:id="colorTask">
                      <value>
                         <Color fx:value="0x3B8686FF"></Color>
                      </value>
                   </JFXColorPicker>
-                  <Button mnemonicParsing="false" onAction="#addTask" styleClass="btn-add" stylesheets="@../css/designAddTask.css" text="Add" />
+                  <Button mnemonicParsing="false" onAction="#addTask" styleClass="btn-add" stylesheets="@../css/designAddTask.css" text="%view.add" />
                </children></VBox>
          </content>
       </ScrollPane>
