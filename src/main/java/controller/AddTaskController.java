@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
@@ -56,8 +57,7 @@ public class AddTaskController {
         properties = ResourceBundle.getBundle("bundles.messages");
     }
 
-    private String toRGBCode( Color color )
-    {
+    private String toRGBCode( Color color ) {
         return String.format( "#%02X%02X%02X",
                 (int)( color.getRed() * 255 ),
                 (int)( color.getGreen() * 255 ),
@@ -84,6 +84,14 @@ public class AddTaskController {
             return true;
 
         return false;
+    }
+
+    public void setEditTask(Task task) {
+        nameTask.setText(task.getName());
+        dateTask.setValue(task.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        timeTask.setValue(task.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalTime());
+        descriptionTask.setText(task.getDescription());
+        colorTask.setValue(Color.valueOf(task.getColor()));
     }
 
     @FXML

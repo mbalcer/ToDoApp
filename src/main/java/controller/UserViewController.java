@@ -1,6 +1,7 @@
 package controller;
 
 import dao.TaskDAO;
+import entity.Task;
 import entity.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -11,11 +12,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 
@@ -23,6 +26,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -58,18 +62,7 @@ public class UserViewController {
 
     @FXML
     void showAddTaskView() {
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/view/addTaskView.fxml"));
-        fxmlLoader.setResources(properties);
-        Parent parent = null;
-        try {
-            parent = fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        AddTaskController addTaskController = fxmlLoader.getController();
-        addTaskController.setLoginController(loginController);
-        addTaskController.setUser(user);
-        appController.setMainBorderPane(parent);
+        loadAddTaskView(Optional.empty());
     }
 
     @FXML
@@ -103,7 +96,7 @@ public class UserViewController {
         properties = ResourceBundle.getBundle("bundles.messages");
     }
 
-    private GridPane createGridPane(Long taskId, String topic, String dateTask, boolean isAfter, String color, boolean isSelected) {
+    private GridPane createGridPane(Task task, boolean isAfter, boolean isSelected) {
         GridPane gridPane = new GridPane();
         gridPane.setMinHeight(53.0);
         gridPane.setPrefHeight(53.0);
@@ -135,10 +128,10 @@ public class UserViewController {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (newValue) {
-                    taskDAO.setIsCompleted(taskId, true);
+                    taskDAO.setIsCompleted(task.getId(), true);
                     loadListTask(false, ".*");
                 } else  {
-                    taskDAO.setIsCompleted(taskId, false);
+                    taskDAO.setIsCompleted(task.getId(), false);
                     loadListTask(true, ".*");
                 }
             }
@@ -148,8 +141,11 @@ public class UserViewController {
         gridPane.setValignment(checkbox, VPos.CENTER);
         gridPane.getChildren().add(checkbox);
 
-        Label labelTopic = new Label(topic);
+        Label labelTopic = new Label(task.getName());
         labelTopic.getStyleClass().add("topic-item");
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        String dateTask = dateFormat.format(task.getDate());
 
         Label labelDate = new Label(dateTask);
         labelDate.getStyleClass().add("date-item");
@@ -158,12 +154,19 @@ public class UserViewController {
 
         gridPane.addColumn(1, labelTopic, labelDate);
         Border border = new Border(new BorderStroke(
-                Paint.valueOf(color),
+                Paint.valueOf(task.getColor()),
                 BorderStrokeStyle.SOLID,
                 new CornerRadii(5),
                 new BorderWidths(1))
         );
         gridPane.setBorder(border);
+        gridPane.setCursor(Cursor.HAND);
+        gridPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                loadAddTaskView(Optional.of(task));
+            }
+        });
 
         return gridPane;
     }
@@ -179,13 +182,27 @@ public class UserViewController {
                     Date today = new Date();
                     if (today.compareTo(task.getDate())>0)
                         isAfter = true;
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-                    String dateTask = dateFormat.format(task.getDate());
-                    GridPane gridPane = createGridPane(task.getId(), task.getName(), dateTask, isAfter, task.getColor(), isCompleted);
+                    GridPane gridPane = createGridPane(task, isAfter, isCompleted);
                     vbox_listTask.getChildren().add(gridPane);
                 });
     }
 
+    private void loadAddTaskView(Optional<Task> task) {
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/view/addTaskView.fxml"));
+        fxmlLoader.setResources(properties);
+        Parent parent = null;
+        try {
+            parent = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        AddTaskController addTaskController = fxmlLoader.getController();
+        addTaskController.setLoginController(loginController);
+        addTaskController.setUser(user);
+        if (task.isPresent())
+            addTaskController.setEditTask(task.get());
+        appController.setMainBorderPane(parent);
+    }
 
 
 }
