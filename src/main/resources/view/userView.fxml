@@ -13,12 +13,12 @@
    <children>
       <HBox layoutY="-1.0" prefHeight="65.0" prefWidth="400.0" styleClass="hbox-top" stylesheets="@../css/designUserView.css">
          <children>
-            <TextField fx:id="tf_search" onKeyReleased="#searchTask" promptText="Search" styleClass="textfield-search" stylesheets="@../css/designUserView.css" />
+            <TextField fx:id="tf_search" onKeyReleased="#searchTask" promptText="%view.user.search" styleClass="textfield-search" stylesheets="@../css/designUserView.css" />
             <MenuButton alignment="TOP_LEFT" mnemonicParsing="false" styleClass="btn-menu">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#showAddTaskView" text="Add task" />
-                  <MenuItem fx:id="switchingDisplayOfTasks" mnemonicParsing="false" onAction="#showCompletedTasks" text="Completed tasks" />
-                <MenuItem mnemonicParsing="false" onAction="#signOut" text="Sign out" />
+                <MenuItem mnemonicParsing="false" onAction="#showAddTaskView" text="%view.user.addtask" />
+                  <MenuItem fx:id="switchingDisplayOfTasks" mnemonicParsing="false" onAction="#showCompletedTasks" text="%view.user.completedtask" />
+                <MenuItem mnemonicParsing="false" onAction="#signOut" text="%view.user.signout" />
               </items>
                <HBox.margin>
                   <Insets left="100.0" />

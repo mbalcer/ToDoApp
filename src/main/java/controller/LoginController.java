@@ -53,7 +53,6 @@ public class LoginController {
 
     @FXML
     private void initialize() {
-        Locale.setDefault(new Locale("en"));
         userDAO = new UserDAO();
         properties = ResourceBundle.getBundle("bundles.messages");
     }
@@ -86,6 +85,7 @@ public class LoginController {
 
     public void loadUserView(User user) {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/userView.fxml"));
+        loader.setResources(properties);
         Parent parent = null;
         try {
              parent = loader.load();
