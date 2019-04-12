@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ResourceBundle;
 
 
 public class UserViewController {
@@ -41,6 +42,7 @@ public class UserViewController {
     private TaskDAO taskDAO;
     private User user;
     private boolean showIsCompleted;
+    private ResourceBundle properties;
 
     public void setAppController(AppController appController) {
         this.appController = appController;
@@ -57,6 +59,7 @@ public class UserViewController {
     @FXML
     void showAddTaskView() {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/view/addTaskView.fxml"));
+        fxmlLoader.setResources(properties);
         Parent parent = null;
         try {
             parent = fxmlLoader.load();
@@ -81,11 +84,11 @@ public class UserViewController {
     void showCompletedTasks() {
         if (showIsCompleted) {
             loadListTask(false, ".*");
-            switchingDisplayOfTasks.setText("Completed tasks");
+            switchingDisplayOfTasks.setText(properties.getString("view.user.completedtask"));
         }
         else {
             loadListTask(true, ".*");
-            switchingDisplayOfTasks.setText("Tasks to do");
+            switchingDisplayOfTasks.setText(properties.getString("view.user.todotask"));
         }
     }
 
@@ -97,6 +100,7 @@ public class UserViewController {
     public void initialize() {
         taskDAO = new TaskDAO();
         vbox_listTask.setSpacing(10);
+        properties = ResourceBundle.getBundle("bundles.messages");
     }
 
     private GridPane createGridPane(Long taskId, String topic, String dateTask, boolean isAfter, String color, boolean isSelected) {
