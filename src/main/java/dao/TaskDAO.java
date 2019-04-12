@@ -26,13 +26,13 @@ public class TaskDAO {
         }
     }
 
-    public void setIsCompleted(Long id) {
+    public void setIsCompleted(Long id, boolean isCompleted) {
         HibernateFactory hibernateFactory = new HibernateFactory();
         Session session = hibernateFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
             Task task = session.find(Task.class, id);
-            task.setCompleted(true);
+            task.setCompleted(isCompleted);
             session.getTransaction().commit();
         } catch (Exception e) {
             transaction.rollback();

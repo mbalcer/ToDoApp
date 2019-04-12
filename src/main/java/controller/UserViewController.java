@@ -96,7 +96,7 @@ public class UserViewController {
         vbox_listTask.setSpacing(10);
     }
 
-    private GridPane createGridPane(Long taskId, String topic, String dateTask, boolean isAfter, String color) {
+    private GridPane createGridPane(Long taskId, String topic, String dateTask, boolean isAfter, String color, boolean isSelected) {
         GridPane gridPane = new GridPane();
         gridPane.setMinHeight(53.0);
         gridPane.setPrefHeight(53.0);
@@ -123,11 +123,17 @@ public class UserViewController {
         checkbox.setPrefHeight(14.0);
         checkbox.setPrefWidth(10.0);
         checkbox.getStyleClass().add("checkbox-item");
-        checkbox.setOnAction(new EventHandler<ActionEvent>() {
+        checkbox.setSelected(isSelected);
+        checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
-            public void handle(ActionEvent event) {
-                taskDAO.setIsCompleted(taskId);
-                loadListTask(false );
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue) {
+                    taskDAO.setIsCompleted(taskId, true);
+                    loadListTask(false );
+                } else  {
+                    taskDAO.setIsCompleted(taskId, false);
+                    loadListTask(true);
+                }
             }
         });
 
@@ -167,7 +173,7 @@ public class UserViewController {
                         isAfter = true;
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
                     String dateTask = dateFormat.format(task.getDate());
-                    GridPane gridPane = createGridPane(task.getId(), task.getName(), dateTask, isAfter, task.getColor());
+                    GridPane gridPane = createGridPane(task.getId(), task.getName(), dateTask, isAfter, task.getColor(), isCompleted);
                     vbox_listTask.getChildren().add(gridPane);
                 });
     }
