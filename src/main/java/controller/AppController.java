@@ -8,6 +8,7 @@ import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ResourceBundle;
 
 public class AppController {
     @FXML
@@ -24,6 +25,8 @@ public class AppController {
 
     public void loadLoginScreen() {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/loginView.fxml"));
+        ResourceBundle properties = ResourceBundle.getBundle("bundles.messages");
+        loader.setResources(properties);
         Parent parent = null;
         try {
             parent = loader.load();
