@@ -71,17 +71,20 @@ public class UserViewController {
 
     @FXML
     void searchTask() {
+        String valueEntered = tf_search.getText();
+        String regex = ".*"+valueEntered+".*";
+        loadListTask(showIsCompleted, regex);
 
     }
 
     @FXML
     void showCompletedTasks() {
         if (showIsCompleted) {
-            loadListTask(false);
+            loadListTask(false, ".*");
             switchingDisplayOfTasks.setText("Completed tasks");
         }
         else {
-            loadListTask(true);
+            loadListTask(true, ".*");
             switchingDisplayOfTasks.setText("Tasks to do");
         }
     }
@@ -129,10 +132,10 @@ public class UserViewController {
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (newValue) {
                     taskDAO.setIsCompleted(taskId, true);
-                    loadListTask(false );
+                    loadListTask(false, ".*");
                 } else  {
                     taskDAO.setIsCompleted(taskId, false);
-                    loadListTask(true);
+                    loadListTask(true, ".*");
                 }
             }
         });
@@ -161,11 +164,12 @@ public class UserViewController {
         return gridPane;
     }
 
-    public void loadListTask(boolean isCompleted) {
+    public void loadListTask(boolean isCompleted, String regex) {
         showIsCompleted = isCompleted;
         vbox_listTask.getChildren().clear();
         taskDAO.readAll(user.getId(), isCompleted)
                 .stream()
+                .filter(task -> task.getName().toLowerCase().matches(regex))
                 .forEach(task -> {
                     boolean isAfter = false;
                     Date today = new Date();
