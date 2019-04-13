@@ -7,6 +7,8 @@ import dao.TaskDAO;
 import entity.Task;
 import entity.User;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
@@ -38,11 +40,18 @@ public class AddTaskController {
     @FXML
     private JFXColorPicker colorTask;
 
+    @FXML
+    private Label lbl_titleAdd;
+
+    @FXML
+    private Button btn_add;
+
     private LoginController loginController;
     private TaskDAO taskDAO;
     private User user;
     private String infoError;
     private ResourceBundle properties;
+    private Long taskId;
 
     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
@@ -70,6 +79,8 @@ public class AddTaskController {
         timeTask.setValue(null);
         descriptionTask.clear();
         colorTask.setValue(Color.valueOf("0x3B8686FF"));
+        lbl_titleAdd.setText(properties.getString("view.add.title"));
+        btn_add.setText(properties.getString("view.add"));
     }
 
     private boolean checkData() {
@@ -92,6 +103,9 @@ public class AddTaskController {
         timeTask.setValue(task.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalTime());
         descriptionTask.setText(task.getDescription());
         colorTask.setValue(Color.valueOf(task.getColor()));
+        lbl_titleAdd.setText(properties.getString("view.add.title.edit"));
+        btn_add.setText(properties.getString("view.add.edit"));
+        this.taskId = task.getId();
     }
 
     @FXML
@@ -104,7 +118,10 @@ public class AddTaskController {
             Date date = Date.from(instant);
             Color color = colorTask.getValue();
             Task task = new Task(user.getId(), nameTask.getText(), date, descriptionTask.getText(), toRGBCode(color), false);
-            taskDAO.add(task);
+            if (btn_add.getText() == properties.getString("view.add.edit"))
+                taskDAO.update(this.taskId, task);
+            else
+                taskDAO.add(task);
             clearAllField();
         }
     }

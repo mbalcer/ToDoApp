@@ -33,7 +33,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label text="%view.add.title" textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="lbl_titleAdd" text="%view.add.title" textAlignment="CENTER" textFill="WHITE" >
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -64,7 +64,7 @@
                         <Color fx:value="0x3B8686FF"></Color>
                      </value>
                   </JFXColorPicker>
-                  <Button mnemonicParsing="false" onAction="#addTask" styleClass="btn-add" stylesheets="@../css/designAddTask.css" text="%view.add" />
+                  <Button fx:id="btn_add" mnemonicParsing="false" onAction="#addTask" styleClass="btn-add" stylesheets="@../css/designAddTask.css" text="%view.add"  />
                </children></VBox>
          </content>
       </ScrollPane>

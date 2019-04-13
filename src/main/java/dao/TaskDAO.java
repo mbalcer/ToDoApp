@@ -26,6 +26,25 @@ public class TaskDAO {
         }
     }
 
+    public void update(Long id, Task newTask) {
+        HibernateFactory hibernateFactory = new HibernateFactory();
+        Session session = hibernateFactory.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            Task task = session.find(Task.class, id);
+            task.setName(newTask.getName());
+            task.setDate(newTask.getDate());
+            task.setDescription(newTask.getDescription());
+            task.setColor(newTask.getColor());
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+
     public void setIsCompleted(Long id, boolean isCompleted) {
         HibernateFactory hibernateFactory = new HibernateFactory();
         Session session = hibernateFactory.getSessionFactory().openSession();
