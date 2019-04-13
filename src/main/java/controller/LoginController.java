@@ -4,6 +4,7 @@ import dao.UserDAO;
 import entity.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import utility.Email;
 import utility.InfoDialog;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -114,6 +115,7 @@ public class LoginController {
             User newUser = new User(tf_r_login.getText(), pf_r_password.getText(), tf_r_email.getText());
             userDAO.add(newUser);
             InfoDialog.showAlert(properties.getString("register.title.success"), properties.getString("register.success.info"));
+            Email sendEmail = new Email(tf_r_email.getText());
         }
     }
 
