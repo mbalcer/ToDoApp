@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class LoginController {
 
@@ -72,7 +73,7 @@ public class LoginController {
 
     @FXML
     public void signIn() {
-        Optional<User> userFromDatabase = userDAO.read(tf_l_login.getText());
+        Optional<User> userFromDatabase = userDAO.read("WHERE login='"+tf_l_login.getText()+"'");
         if (userFromDatabase.isPresent()) {
             if (userFromDatabase.get().getPassword().equals(pf_l_password.getText())) {
                 loadUserView(userFromDatabase.get());
@@ -82,6 +83,40 @@ public class LoginController {
         } else {
             InfoDialog.showAlert(properties.getString("login.title.error"), properties.getString("login.error.nouser"));
         }
+    }
+
+
+    @FXML
+    public void signUp() {
+        Pattern patternEmail = Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
+        if (tf_r_login.getText().isEmpty())
+            InfoDialog.showAlert(properties.getString("register.title.error"), properties.getString("register.error.nologin"));
+        else if (tf_r_email.getText().isEmpty())
+            InfoDialog.showAlert(properties.getString("register.title.error"), properties.getString("register.error.noemail"));
+        else if (pf_r_password.getText().length() < 6)
+            InfoDialog.showAlert(properties.getString("register.title.error"), properties.getString("register.error.shortpassword"));
+        else if (!(pf_r_password.getText().equals(pf_r_repeatPassword.getText())))
+            InfoDialog.showAlert(properties.getString("register.title.error"), properties.getString("register.error.passwordnotsame"));
+        else if (!(patternEmail.matcher(tf_r_email.getText()).matches()))
+            InfoDialog.showAlert(properties.getString("register.title.error"), properties.getString("register.error.patternemail"));
+        else if (userDAO.read("WHERE login='"+tf_r_login.getText()+"'").isPresent())
+            InfoDialog.showAlert(properties.getString("register.title.error"), properties.getString("register.error.loginexists"));
+        else if (userDAO.read("WHERE email='"+tf_r_email.getText()+"'").isPresent())
+            InfoDialog.showAlert(properties.getString("register.title.error"), properties.getString("register.error.emailexists"));
+        else {
+            User newUser = new User(tf_r_login.getText(), pf_r_password.getText(), tf_r_email.getText());
+            userDAO.add(newUser);
+            InfoDialog.showAlert(properties.getString("register.title.success"), properties.getString("register.success.info"));
+            clearAllField();
+            Email sendEmail = new Email(tf_r_email.getText());
+        }
+    }
+
+    private void clearAllField() {
+        tf_r_login.clear();
+        tf_r_email.clear();
+        pf_r_password.clear();
+        pf_r_repeatPassword.clear();
     }
 
     public void loadUserView(User user) {
@@ -101,22 +136,5 @@ public class LoginController {
         appController.setMainBorderPane(parent);
     }
 
-    @FXML
-    public void signUp() {
-        if (tf_r_login.getText().isEmpty()) {
-            InfoDialog.showAlert(properties.getString("register.title.error"), properties.getString("register.error.nologin"));
-        } else if (tf_r_email.getText().isEmpty())
-            InfoDialog.showAlert(properties.getString("register.title.error"), properties.getString("register.error.noemail"));
-        else if (pf_r_password.getText().length() < 6)
-            InfoDialog.showAlert(properties.getString("register.title.error"), properties.getString("register.error.shortpassword"));
-        else if (!(pf_r_password.getText().equals(pf_r_repeatPassword.getText())))
-            InfoDialog.showAlert(properties.getString("register.title.error"), properties.getString("register.error.passwordnotsame"));
-        else {
-            User newUser = new User(tf_r_login.getText(), pf_r_password.getText(), tf_r_email.getText());
-            userDAO.add(newUser);
-            InfoDialog.showAlert(properties.getString("register.title.success"), properties.getString("register.success.info"));
-            Email sendEmail = new Email(tf_r_email.getText());
-        }
-    }
 
 }

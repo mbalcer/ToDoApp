@@ -25,12 +25,12 @@ public class UserDAO {
         }
     }
 
-    public Optional<User> read(String login) {
+    public Optional<User> read(String queryWhere) {
         HibernateFactory hibernateFactory = new HibernateFactory();
         Session session = hibernateFactory.getSessionFactory().openSession();
 
         try {
-            Query query = session.createQuery("FROM User WHERE login='"+login+"'");
+            Query query = session.createQuery("FROM User "+queryWhere);
             User user = (User) query.list().get(0);
             return Optional.of(user);
         } catch (Exception e) {
