@@ -15,12 +15,14 @@ public class Email {
     private String receiverEmail = null;
     private String emailSubject = null;
     private String emailBody = null;
+    private ResourceBundle bundle;
 
 
     public Email(String receiverEmail) {
+        this.bundle = ResourceBundle.getBundle("bundles.messages");
         this.receiverEmail = receiverEmail;
         this.emailSubject = "ToDoApp";
-        this.emailBody = "Witaj w aplikacji ToDoApp \n\nDostałeś tego emaila ponieważ zarejestrowałeś się do aplikacji ToDoApp \n\nPozdrawiam \nAdmin ToDoApp";
+        this.emailBody = this.bundle.getString("email.message");
 
         Properties props = new Properties();
         props.put("mail.smtp.user", senderEmail);
