@@ -118,10 +118,14 @@ public class AddTaskController {
             Date date = Date.from(instant);
             Color color = colorTask.getValue();
             Task task = new Task(user.getId(), nameTask.getText(), date, descriptionTask.getText(), toRGBCode(color), false);
-            if (btn_add.getText() == properties.getString("view.add.edit"))
+            if (btn_add.getText() == properties.getString("view.add.edit")) {
                 taskDAO.update(this.taskId, task);
-            else
+                InfoDialog.showAlert(properties.getString("add.success.title"), properties.getString("add.success.infoedit"));
+            }
+            else {
                 taskDAO.add(task);
+                InfoDialog.showAlert(properties.getString("add.success.title"), properties.getString("add.success.infoadd"));
+            }
             clearAllField();
         }
     }
