@@ -186,10 +186,6 @@ public class UserViewController {
                     GridPane gridPane = createGridPane(task, isAfter, isCompleted);
                     vbox_listTask.getChildren().add(gridPane);
                 });
-
-        Notification notification = new Notification();
-        notification.setUser(user);
-        notification.start();
     }
 
     private void loadAddTaskView(Optional<Task> task) {

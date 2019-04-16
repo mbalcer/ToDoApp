@@ -8,6 +8,8 @@ import utility.Email;
 import utility.InfoDialog;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import utility.Notification;
+
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Optional;
@@ -133,6 +135,7 @@ public class LoginController {
         userController.setLoginController(this);
         userController.setUser(user);
         userController.loadListTask(false, ".*");
+        Notification notification = new Notification(user);
         appController.setMainBorderPane(parent);
     }
 

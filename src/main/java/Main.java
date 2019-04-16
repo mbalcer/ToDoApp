@@ -5,6 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.util.Locale;
+
 public class Main extends Application {
 
     @Override
