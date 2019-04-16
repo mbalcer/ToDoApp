@@ -3,11 +3,9 @@ package utility;
 import dao.TaskDAO;
 import entity.Task;
 import entity.User;
+import javafx.application.Platform;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -55,9 +53,13 @@ public class Notification {
                     String dateTask = dateFormat.format(task.getDate());
                     return dateTask.equals(now);
                 })
-                .forEach(System.out::println);
+                .forEach(task -> sendNotification(task));
     }
 
-    private void sendNotification() {
+    private void sendNotification(Task task) {
+        Platform.runLater(() -> {
+            String content = String.format("Zadanie: %s\nOpis: %s", task.getName(), task.getDescription());
+            InfoDialog.showAlert("Powiadomienie!", content);
+        });
     }
 }
