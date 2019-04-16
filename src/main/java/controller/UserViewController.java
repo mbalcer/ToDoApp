@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
+import utility.Notification;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -185,6 +186,10 @@ public class UserViewController {
                     GridPane gridPane = createGridPane(task, isAfter, isCompleted);
                     vbox_listTask.getChildren().add(gridPane);
                 });
+
+        Notification notification = new Notification();
+        notification.setUser(user);
+        notification.start();
     }
 
     private void loadAddTaskView(Optional<Task> task) {
