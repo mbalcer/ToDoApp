@@ -75,4 +75,20 @@ public class TaskDAO {
         }
         return taskList;
     }
+
+    public void delete(Long id) {
+        HibernateFactory hibernateFactory = new HibernateFactory();
+        Session session = hibernateFactory.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            Task task = session.find(Task.class, id);
+            session.delete(task);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
 }

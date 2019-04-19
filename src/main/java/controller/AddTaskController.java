@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTimePicker;
 import dao.TaskDAO;
 import entity.Task;
 import entity.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -46,6 +47,9 @@ public class AddTaskController {
     @FXML
     private Button btn_add;
 
+    @FXML
+    private Button btn_delete;
+
     private LoginController loginController;
     private TaskDAO taskDAO;
     private User user;
@@ -62,6 +66,7 @@ public class AddTaskController {
     }
 
     public void initialize() {
+        btn_delete.setVisible(false);
         taskDAO = new TaskDAO();
         properties = ResourceBundle.getBundle("bundles.messages");
     }
@@ -98,6 +103,7 @@ public class AddTaskController {
     }
 
     public void setEditTask(Task task) {
+        btn_delete.setVisible(true);
         nameTask.setText(task.getName());
         dateTask.setValue(task.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         timeTask.setValue(task.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalTime());
@@ -136,4 +142,10 @@ public class AddTaskController {
         loginController.loadUserView(user);
     }
 
+    @FXML
+    public void deleteTask() {
+        taskDAO.delete(taskId);
+        InfoDialog.showAlert("Usunięcie", "Usunięto zadanie");
+        clearAllField();
+    }
 }
