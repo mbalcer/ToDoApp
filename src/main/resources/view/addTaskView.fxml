@@ -38,9 +38,18 @@
                   <Font name="System Bold" size="18.0" />
                </font>
                <HBox.margin>
-                  <Insets left="100.0" top="5.0" />
+                  <Insets left="95.0" top="5.0" right="90" />
                </HBox.margin>
             </Label>
+            <Button mnemonicParsing="false" fx:id="btn-delete" onAction="#deleteTask" styleClass="btn-back" stylesheets="@../css/designAddTask.css">
+               <graphic>
+                  <ImageView fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/rubbish-bin.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </HBox>
       <ScrollPane hbarPolicy="NEVER" layoutY="60.0" prefHeight="440.0" prefWidth="400.0" stylesheets="@../css/designUserView.css">
