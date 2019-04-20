@@ -144,8 +144,10 @@ public class AddTaskController {
 
     @FXML
     public void deleteTask() {
-        taskDAO.delete(taskId);
-        InfoDialog.showAlert("Usunięcie", "Usunięto zadanie");
-        clearAllField();
+        if(InfoDialog.showConfirmationAlert("Usunięcie zadania", "Czy na pewno chcesz usunąć to zadanie?")) {
+            taskDAO.delete(taskId);
+            InfoDialog.showAlert("Usunięcie", "Usunięto zadanie");
+            clearAllField();
+        }
     }
 }
