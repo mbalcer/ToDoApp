@@ -38,10 +38,10 @@
                   <Font name="System Bold" size="18.0" />
                </font>
                <HBox.margin>
-                  <Insets left="95.0" top="5.0" right="90" />
+                  <Insets left="80.0" top="5.0" right="50" />
                </HBox.margin>
             </Label>
-            <Button mnemonicParsing="false" fx:id="btn-delete" onAction="#deleteTask" styleClass="btn-back" stylesheets="@../css/designAddTask.css">
+            <Button fx:id="btn_delete" mnemonicParsing="false" onAction="#deleteTask" styleClass="btn-back" stylesheets="@../css/designAddTask.css">
                <graphic>
                   <ImageView fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
